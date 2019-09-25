@@ -1,0 +1,96 @@
+###########################################################################################################################
+# DO Community Playbooks
+# Playbook: Reseting Harmony node on Ubuntu 18.04
+###########################################################################################################################
+
+---
+- hosts: "harmony-nodes"
+  tasks:
+
+    - name: Stop Harmony service
+      shell: systemctl stop harmony.service
+      tags:
+          - restart
+
+    - name: Remove old files
+      shell: rm -rf harmony_db_* wallet.sh node.sh
+
+    - name: Download wallet
+      get_url:
+        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/wallet.sh
+        dest: /root/wallet.sh
+        mode: a+x
+
+    - name: Download node
+      get_url:
+        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/node.sh
+        dest: /root/node.sh
+        mode: a+x
+
+    - name: Init wallet
+      shell: /root/wallet.sh -d
+      tags:
+          - wallet
+
+    - name: Start Harmony service
+      shell: systemctl start harmony.service
+      tags:
+          - restart
+
+- hosts: "coda.novy.pw"
+  tasks:
+
+#    - name: Stop Harmony service
+#      shell: systemctl stop harmony.service
+
+#    - name: Remove old files
+#      shell: cd /root/harmony-pangaea && rm -rf harmony_db_* wallet.sh node.sh
+
+#    - name: Download wallet
+#      get_url:
+#        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/wallet.sh
+#        dest: /root/harmony-pangaea/wallet.sh
+#        mode: a+x
+
+#    - name: Download node
+#      get_url:
+#        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/node.sh
+#        dest: /root/harmony-pangaea/node.sh
+#        mode: a+x
+
+    - name: Init wallet
+      shell: cd /root/harmony-pangaea && ./wallet.sh -d
+      tags:
+          - wallet
+
+#    - name: Start Harmony service
+#      shell: systemctl start harmony.service
+
+- hosts: "bitsong.novy.pw"
+  tasks:
+
+#    - name: Stop Harmony service
+#      shell: systemctl stop harmony.service
+
+#    - name: Remove old files
+#      shell: cd /mnt/HC_Volume_3070618 && rm -rf harmony_db_* wallet.sh node.sh
+
+#    - name: Download wallet
+#      get_url:
+#        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/wallet.sh
+#        dest: /mnt/HC_Volume_3070618/wallet.sh
+#        mode: a+x
+
+#    - name: Download node
+#      get_url:
+#        url: https://raw.githubusercontent.com/harmony-one/harmony/master/scripts/node.sh
+#        dest: /mnt/HC_Volume_3070618/node.sh
+#        mode: a+x
+
+    - name: Init wallet
+      shell: cd /mnt/HC_Volume_3070618 && ./wallet.sh -d
+      tags:
+          - wallet
+
+#    - name: Start Harmony service
+#      shell: systemctl start harmony.service
