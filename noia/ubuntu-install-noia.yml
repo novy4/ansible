@@ -1,0 +1,149 @@
+###########################################################################################################################
+# DO Community Playbooks
+# Playbook: Installing Docker and Creating Containers on Ubuntu 18.04
+###########################################################################################################################
+
+---
+- hosts: "zaal-nodes"
+  environment:
+    NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
+
+  tasks:
+    - name: Delete old noia container
+      shell: docker stop $(docker ps | grep noia-node | awk -F " " '{print $1}')
+      tags:
+          - clean
+
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+      tags: 
+          - install
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'git', 'curl', 'build-essential', 'python-pip', 'python-dev']
+      tags: 
+          - install
+
+    - name: Download nodejs
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | bash -
+      tags: 
+          - install
+          - update2
+
+    - name: Install nodejs
+      apt: name=nodejs state=latest update_cache=yes force_apt_get=yes
+      tags: 
+          - install
+          - update2
+
+    - name: Clone Noia repo
+      git:
+        repo: https://github.com/noia-network/noia-node-cli.git
+        version: master
+        dest: /root/noia-node-cli
+        update: no
+      tags: 
+          - install
+    
+    - name: Install npm
+      shell: cd /root/noia-node-cli && npm install && npm run build
+      tags: 
+          - install
+
+    - name: copy noia.service file 
+      copy:
+        src: "noia.service"
+        dest: "/etc/systemd/system/"
+        owner: "root"
+        group: "root"
+      tags: 
+          - install
+
+    - name: start noia.service
+      shell: systemctl start noia.service
+      tags: 
+          - install
+          - start
+
+    - pause: seconds=15
+
+    - name: stop noia.service
+      shell: systemctl stop noia.service
+      tags: 
+          - run
+          - update
+          - storage
+          - stop
+
+    - name: remove nodejs
+      shell: apt remove nodejs -y
+      tags: 
+          - update
+
+    - name: delete old files
+      shell: cd /root/noia-node-cli/ && rm -rf node_modules && rm package-lock.json
+      tags: 
+          - update
+
+    - name: git pull changes
+      shell: cd /root/noia-node-cli/ && git pull
+      tags: 
+          - update2
+
+    - name: npm install
+      shell: cd /root/noia-node-cli/ && npm install
+      tags: 
+          - update2
+
+    - name: npm run build
+      shell: cd /root/noia-node-cli/ && npm run build
+      tags: 
+          - update2
+
+    - name: Set wallet for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "airdropAddress=null"
+        line: "airdropAddress={{ wallet }}"
+        state: present
+      tags:
+          - set_wallet
+          - run
+
+    - name: Disable NAT for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "natPmp=true"
+        line: "natPmp=false"
+        state: present
+      tags:
+          - install
+          - set_nat
+          - run
+
+    - name: Storage Increase for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "size=104857600"
+        line: "size=10485760000"
+        state: present
+      tags:
+          - install
+          - storage
+          - run
+
+    - name: start noia.service
+      shell: systemctl start noia.service
+      tags: 
+          - install
+          - run
+          - update2
+          - storage
+
+    - name: enable noia.service
+      systemd: name=noia.service state=started enabled=yes
+      tags: 
+          - install
+          - run
+
