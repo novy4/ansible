@@ -1,0 +1,12 @@
+[Unit]
+Description=noia
+
+[Service]
+User=root
+WorkingDirectory=/root/noia-node-cli
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=7
+
+[Install]
+WantedBy=default.target
