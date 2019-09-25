@@ -4,7 +4,7 @@
 ###########################################################################################################################
 
 ---
-- hosts: "zaal-nodes"
+- hosts: "new-hosts"
   environment:
     NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
 
@@ -118,7 +118,6 @@
         line: "natPmp=false"
         state: present
       tags:
-          - install
           - set_nat
           - run
 
@@ -129,14 +128,12 @@
         line: "size=10485760000"
         state: present
       tags:
-          - install
           - storage
           - run
 
     - name: start noia.service
       shell: systemctl start noia.service
       tags: 
-          - install
           - run
           - update2
           - storage
@@ -144,6 +141,5 @@
     - name: enable noia.service
       systemd: name=noia.service state=started enabled=yes
       tags: 
-          - install
           - run
 
