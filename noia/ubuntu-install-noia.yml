@@ -125,7 +125,7 @@
       lineinfile:
         path: '/root/.noia-node/node.settings'
         regexp: "size=104857600"
-        line: "size=10485760000"
+        line: "size=5485760000"
         state: present
       tags:
           - storage
