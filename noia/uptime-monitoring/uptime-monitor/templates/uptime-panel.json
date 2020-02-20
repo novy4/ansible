@@ -1,0 +1,57 @@
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy10.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy1 uptime",
+  "transparent": true,
+  "type": "gauge"
+}

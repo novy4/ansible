@@ -1,0 +1,6493 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 23,
+  "iteration": 1582197267105,
+  "links": [],
+  "refresh": "1m",
+  "schemaVersion": 18,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "alias",
+          "value": "alias"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "tag",
+        "options": [
+          {
+            "selected": false,
+            "text": "instance",
+            "value": "instance"
+          },
+          {
+            "selected": true,
+            "text": "alias",
+            "value": "alias"
+          }
+        ],
+        "query": "instance, alias",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "NOIA Nodes",
+  "uid": "1VbEShOdWz1",
+  "version": 18,
+  "panels": [
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 5762274990,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy1.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy1.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy1.noia.novy.pw is down",
+    "name": "novy1.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 5762274990,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy1.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy1.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 4185633507,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy2.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy2.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy2.noia.novy.pw is down",
+    "name": "novy2.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 4185633507,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy2.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy2.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2957457063,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy3.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy3.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy3.noia.novy.pw is down",
+    "name": "novy3.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2957457063,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy3.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy3.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9474703278,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy4.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy4.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy4.noia.novy.pw is down",
+    "name": "novy4.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9474703278,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy4.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy4.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7046225874,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy5.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy5.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy5.noia.novy.pw is down",
+    "name": "novy5.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7046225874,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy5.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy5.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6222655113,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy6.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy6.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy6.noia.novy.pw is down",
+    "name": "novy6.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6222655113,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy6.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy6.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3278519721,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy7.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy7.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy7.noia.novy.pw is down",
+    "name": "novy7.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3278519721,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy7.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy7.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8376913248,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy8.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy8.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy8.noia.novy.pw is down",
+    "name": "novy8.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8376913248,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy8.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy8.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6737657559,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"novy9.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "novy9.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "novy9.noia.novy.pw is down",
+    "name": "novy9.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6737657559,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"novy9.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "novy9.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 5616939559,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart1.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart1.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart1.noia.novy.pw is down",
+    "name": "smart1.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 5616939559,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart1.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart1.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3192759093,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart14.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart14.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart14.noia.novy.pw is down",
+    "name": "smart14.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3192759093,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart14.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart14.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9289582687,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart15.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart15.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart15.noia.novy.pw is down",
+    "name": "smart15.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9289582687,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart15.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart15.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7785244563,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart16.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart16.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart16.noia.novy.pw is down",
+    "name": "smart16.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7785244563,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart16.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart16.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3333443335,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart17.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart17.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart17.noia.novy.pw is down",
+    "name": "smart17.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3333443335,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart17.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart17.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8356378561,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart18.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart18.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart18.noia.novy.pw is down",
+    "name": "smart18.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8356378561,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart18.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart18.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7313870183,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart19.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart19.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart19.noia.novy.pw is down",
+    "name": "smart19.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7313870183,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart19.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart19.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6826200719,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart2.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart2.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart2.noia.novy.pw is down",
+    "name": "smart2.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6826200719,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart2.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart2.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9022537825,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart20.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart20.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart20.noia.novy.pw is down",
+    "name": "smart20.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9022537825,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart20.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart20.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 4727137269,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart3.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart3.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart3.noia.novy.pw is down",
+    "name": "smart3.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 4727137269,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart3.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart3.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7666921387,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart4.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart4.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart4.noia.novy.pw is down",
+    "name": "smart4.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7666921387,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart4.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart4.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1797739600,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart5.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart5.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart5.noia.novy.pw is down",
+    "name": "smart5.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1797739600,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart5.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart5.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2615839293,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart6.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart6.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart6.noia.novy.pw is down",
+    "name": "smart6.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2615839293,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart6.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart6.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8188775858,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart7.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart7.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart7.noia.novy.pw is down",
+    "name": "smart7.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8188775858,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart7.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart7.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6737769537,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart8.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart8.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart8.noia.novy.pw is down",
+    "name": "smart8.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 6737769537,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart8.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart8.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7476430837,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"smart9.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "smart9.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "smart9.noia.novy.pw is down",
+    "name": "smart9.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7476430837,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"smart9.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "smart9.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2432847822,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal1.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal1.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal1.noia.novy.pw is down",
+    "name": "zaal1.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 2432847822,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal1.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal1.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8476239403,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal2.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal2.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal2.noia.novy.pw is down",
+    "name": "zaal2.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8476239403,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal2.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal2.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7984477566,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal3.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal3.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal3.noia.novy.pw is down",
+    "name": "zaal3.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 7984477566,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal3.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal3.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9598102797,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal4.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal4.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal4.noia.novy.pw is down",
+    "name": "zaal4.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 9598102797,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal4.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal4.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3690260705,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal5.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal5.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal5.noia.novy.pw is down",
+    "name": "zaal5.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 3690260705,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal5.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal5.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1960682792,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal6.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal6.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal6.noia.novy.pw is down",
+    "name": "zaal6.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1960682792,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal6.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal6.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1290118117,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal7.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal7.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal7.noia.novy.pw is down",
+    "name": "zaal7.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 1290118117,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal7.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal7.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+,
+{
+  "cacheTimeout": null,
+  "datasource": "Prometheus",
+  "gridPos": {
+    "h": 3,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8062164908,
+  "links": [],
+  "options": {
+    "maxValue": "168",
+    "minValue": 0,
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "thresholds": [
+      {
+        "color": "#C4162A",
+        "index": 0,
+        "value": null
+      },
+      {
+        "color": "#EAB839",
+        "index": 1,
+        "value": 90
+      },
+      {
+        "color": "#6ED0E0",
+        "index": 2,
+        "value": 120
+      }
+    ],
+    "valueMappings": [],
+    "valueOptions": {
+      "decimals": null,
+      "prefix": "",
+      "stat": "avg",
+      "suffix": "",
+      "unit": "none"
+    }
+  },
+  "targets": [
+    {
+      "expr": "noia_uptime{$tag=\"zaal8.noia.novy.pw\"}",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "zaal8.noia.novy.pw uptime",
+  "transparent": true,
+  "type": "gauge"
+},
+{
+  "alert": {
+    "conditions": [
+      {
+        "evaluator": {
+          "params": [
+            2
+          ],
+          "type": "lt"
+        },
+        "operator": {
+          "type": "and"
+        },
+        "query": {
+          "params": [
+            "A",
+            "5m",
+            "now"
+          ]
+        },
+        "reducer": {
+          "params": [],
+          "type": "avg"
+        },
+        "type": "query"
+      }
+    ],
+    "executionErrorState": "alerting",
+    "for": "3m",
+    "frequency": "1m",
+    "handler": 1,
+    "message": "zaal8.noia.novy.pw is down",
+    "name": "zaal8.noia.novy.pw uptime alert",
+    "noDataState": "no_data",
+    "notifications": [
+      {
+        "uid": "T_h2QnWWk"
+      }
+    ]
+  },
+  "aliasColors": {},
+  "bars": false,
+  "cacheTimeout": null,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Prometheus",
+  "fill": 10,
+  "gridPos": {
+    "h": 2,
+    "w": 2,
+    "x": 4,
+    "y": 0
+  },
+  "id": 8062164908,
+  "legend": {
+    "alignAsTable": false,
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "rightSide": true,
+    "show": false,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "paceLength": 10,
+  "percentage": false,
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "expr": "irate(node_network_transmit_bytes_total{alias=\"zaal8.noia.novy.pw\", device!=\"lo\"}[5m])",
+      "format": "time_series",
+      "hide": false,
+      "intervalFactor": 1,
+      "refId": "A"
+    }
+  ],
+  "thresholds": [
+    {
+      "colorMode": "critical",
+      "fill": true,
+      "line": true,
+      "op": "lt",
+      "value": 2,
+      "yaxis": "left"
+    }
+  ],
+  "timeFrom": null,
+  "timeRegions": [],
+  "timeShift": null,
+  "title": "zaal8.noia.novy.pw network",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": false,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": false
+    }
+  ],
+  "yaxis": {
+    "align": false,
+    "alignLevel": null
+  }
+}
+]}
