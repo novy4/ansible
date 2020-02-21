@@ -16,20 +16,26 @@
         apply:
           tags:
             - run
-    - name: Include Node exporter with custom metrics
-      include: monitoring/installation.yml
+    - include_role:
+        name: uptime-monitor
   tags:
     - full-install
+
+- hosts: new-hosts
+  roles:
+    - role: uptime-monitor
+  tags:
+    - metrics
 
 - name: Include Dashboard generation
   include: monitoring/dashboard.yml
   tags:
     - dashboards
 
-- name: Include prometheus configuration
-  include: monitoring/prometheus_config.yml
-  tags:
-    - prometheus
+#- name: Include prometheus configuration
+#  include: monitoring/prometheus_config.yml
+#  tags:
+#    - prometheus
 
 ##########SOFTWARE UPGRADE###########
 - hosts: new-hosts

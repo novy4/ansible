@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+EnvironmentFile=/etc/sysconfig/node_exporter
+ExecStart={{ prometheus_exporters_common_root_dir }}/node_exporter_current/node_exporter $OPTIONS
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
