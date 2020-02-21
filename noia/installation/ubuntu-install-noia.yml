@@ -1,10 +1,10 @@
 ###########################################################################################################################
 # DO Community Playbooks
-# Playbook: Installing Docker and Creating Containers on Ubuntu 18.04
+# Playbook: Installing NOIA
 ###########################################################################################################################
 
 ---
-- hosts: "new-hosts"
+- hosts: "novy-nodes"
   environment:
     NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
 
@@ -142,4 +142,9 @@
       systemd: name=noia.service state=started enabled=yes
       tags: 
           - run
+
+    - name: restart noia.service
+      shell: systemctl restart noia.service
+      tags: 
+          - restart
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=noia uptime
+
+[Service]
+User=root
+WorkingDirectory=/root
+ExecStart=/root/uptime_metric.sh /var/lib/node_exporter/textfile_collector/noia_uptime.prom
+Restart=always
+RestartSec=7
+
+[Install]
+WantedBy=default.target
