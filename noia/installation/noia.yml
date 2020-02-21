@@ -1,19 +1,9 @@
-###########################################################################################################################
-# DO Community Playbooks
-# Playbook: Installing NOIA
-###########################################################################################################################
-
 ---
-- hosts: "novy-nodes"
+- name: Noia node installation
   environment:
     NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
 
   tasks:
-    - name: Delete old noia container
-      shell: docker stop $(docker ps | grep noia-node | awk -F " " '{print $1}')
-      tags:
-          - clean
-
     - name: Install aptitude using apt
       apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
       tags: 
@@ -29,13 +19,13 @@
       shell: curl -sL https://deb.nodesource.com/setup_10.x | bash -
       tags: 
           - install
-          - update2
+          - update
 
     - name: Install nodejs
       apt: name=nodejs state=latest update_cache=yes force_apt_get=yes
       tags: 
           - install
-          - update2
+          - update
 
     - name: Clone Noia repo
       git:
@@ -72,34 +62,34 @@
       shell: systemctl stop noia.service
       tags: 
           - run
-          - update
+          - clean
           - storage
           - stop
 
     - name: remove nodejs
       shell: apt remove nodejs -y
       tags: 
-          - update
+          - clean
 
     - name: delete old files
       shell: cd /root/noia-node-cli/ && rm -rf node_modules && rm package-lock.json
       tags: 
-          - update
+          - clean
 
     - name: git pull changes
       shell: cd /root/noia-node-cli/ && git pull
       tags: 
-          - update2
+          - update
 
     - name: npm install
       shell: cd /root/noia-node-cli/ && npm install
       tags: 
-          - update2
+          - update
 
     - name: npm run build
       shell: cd /root/noia-node-cli/ && npm run build
       tags: 
-          - update2
+          - update
 
     - name: Set wallet for noia
       lineinfile:
@@ -135,7 +125,7 @@
       shell: systemctl start noia.service
       tags: 
           - run
-          - update2
+          - update
           - storage
 
     - name: enable noia.service

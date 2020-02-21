@@ -1,0 +1,58 @@
+#########################################
+###########MAIN#PLAYBOOK#FOR#NOIA########
+#########################################
+##########INITIAL INSTALLATION###########
+- hosts: new-hosts
+  tasks:
+    - name: Include Noia installation
+      include_tasks:
+        file: installation/noia.yml
+        apply:
+          tags:
+            - install
+    - name: Include Noia run node
+      include_tasks:
+        file: installation/noia.yml
+        apply:
+          tags:
+            - run
+    - name: Include Node exporter with custom metrics
+      include: monitoring/installation.yml
+  tags:
+    - full-install
+
+- name: Include Dashboard generation
+  include: monitoring/dashboard.yml
+  tags:
+    - dashboards
+
+- name: Include prometheus configuration
+  include: monitoring/prometheus_config.yml
+  tags:
+    - prometheus
+
+##########SOFTWARE UPGRADE###########
+- hosts: new-hosts
+  tasks:
+    - name: Include Noia installation
+      include_tasks:
+        file: installation/noia.yml
+        apply:
+          tags:
+            - install
+    - name: Include Noia run node
+      include_tasks:
+        file: installation/noia.yml
+        apply:
+          tags:
+            - clean
+    - name: Include Noia run node
+      include_tasks:
+        file: installation/noia.yml
+        apply:
+          tags:
+            - update  
+  tags:
+    - upgrade
+
+
