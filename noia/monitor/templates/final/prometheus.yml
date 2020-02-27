@@ -1,0 +1,223 @@
+  - job_name: 'novy1.noia.novy.pw'
+    static_configs:
+      - targets: ['46.17.104.219:9100']
+        labels:
+          alias: novy1.noia.novy.pw
+
+
+  - job_name: 'novy2.noia.novy.pw'
+    static_configs:
+      - targets: ['195.201.22.82:9100']
+        labels:
+          alias: novy2.noia.novy.pw
+
+
+  - job_name: 'novy3.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.65.100:9100']
+        labels:
+          alias: novy3.noia.novy.pw
+
+
+  - job_name: 'novy4.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.69.218:9100']
+        labels:
+          alias: novy4.noia.novy.pw
+
+
+  - job_name: 'novy5.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.70.251:9100']
+        labels:
+          alias: novy5.noia.novy.pw
+
+
+  - job_name: 'novy6.noia.novy.pw'
+    static_configs:
+      - targets: ['46.17.104.173:9100']
+        labels:
+          alias: novy6.noia.novy.pw
+
+
+  - job_name: 'novy7.noia.novy.pw'
+    static_configs:
+      - targets: ['46.17.104.228:9100']
+        labels:
+          alias: novy7.noia.novy.pw
+
+
+  - job_name: 'novy8.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.24:9100']
+        labels:
+          alias: novy8.noia.novy.pw
+
+
+  - job_name: 'novy9.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.25:9100']
+        labels:
+          alias: novy9.noia.novy.pw
+
+
+  - job_name: 'smart1.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.67.50:9100']
+        labels:
+          alias: smart1.noia.novy.pw
+
+
+  - job_name: 'smart14.noia.novy.pw'
+    static_configs:
+      - targets: ['185.180.231.228:9100']
+        labels:
+          alias: smart14.noia.novy.pw
+
+
+  - job_name: 'smart15.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.70.159:9100']
+        labels:
+          alias: smart15.noia.novy.pw
+
+
+  - job_name: 'smart16.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.70.172:9100']
+        labels:
+          alias: smart16.noia.novy.pw
+
+
+  - job_name: 'smart17.noia.novy.pw'
+    static_configs:
+      - targets: ['195.66.114.70:9100']
+        labels:
+          alias: smart17.noia.novy.pw
+
+
+  - job_name: 'smart18.noia.novy.pw'
+    static_configs:
+      - targets: ['185.188.182.17:9100']
+        labels:
+          alias: smart18.noia.novy.pw
+
+
+  - job_name: 'smart19.noia.novy.pw'
+    static_configs:
+      - targets: ['195.66.114.74:9100']
+        labels:
+          alias: smart19.noia.novy.pw
+
+
+  - job_name: 'smart2.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.65.96:9100']
+        labels:
+          alias: smart2.noia.novy.pw
+
+
+  - job_name: 'smart20.noia.novy.pw'
+    static_configs:
+      - targets: ['195.66.114.75:9100']
+        labels:
+          alias: smart20.noia.novy.pw
+
+
+  - job_name: 'smart3.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.65.11:9100']
+        labels:
+          alias: smart3.noia.novy.pw
+
+
+  - job_name: 'smart4.noia.novy.pw'
+    static_configs:
+      - targets: ['45.144.65.166:9100']
+        labels:
+          alias: smart4.noia.novy.pw
+
+
+  - job_name: 'smart5.noia.novy.pw'
+    static_configs:
+      - targets: ['139.28.223.27:9100']
+        labels:
+          alias: smart5.noia.novy.pw
+
+
+  - job_name: 'smart6.noia.novy.pw'
+    static_configs:
+      - targets: ['185.189.12.130:9100']
+        labels:
+          alias: smart6.noia.novy.pw
+
+
+  - job_name: 'smart7.noia.novy.pw'
+    static_configs:
+      - targets: ['185.204.3.189:9100']
+        labels:
+          alias: smart7.noia.novy.pw
+
+
+  - job_name: 'smart8.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.64.140:9100']
+        labels:
+          alias: smart8.noia.novy.pw
+
+
+  - job_name: 'smart9.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.70.105:9100']
+        labels:
+          alias: smart9.noia.novy.pw
+
+
+  - job_name: 'zaal1.noia.novy.pw'
+    static_configs:
+      - targets: ['195.66.114.78:9100']
+        labels:
+          alias: zaal1.noia.novy.pw
+
+
+  - job_name: 'zaal2.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.30:9100']
+        labels:
+          alias: zaal2.noia.novy.pw
+
+
+  - job_name: 'zaal3.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.170:9100']
+        labels:
+          alias: zaal3.noia.novy.pw
+
+
+  - job_name: 'zaal4.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.184:9100']
+        labels:
+          alias: zaal4.noia.novy.pw
+
+
+  - job_name: 'zaal5.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.185:9100']
+        labels:
+          alias: zaal5.noia.novy.pw
+
+
+  - job_name: 'zaal6.noia.novy.pw'
+    static_configs:
+      - targets: ['147.78.67.35:9100']
+        labels:
+          alias: zaal6.noia.novy.pw
+
+
+  - job_name: 'zaal7.noia.novy.pw'
+    static_configs:
+      - targets: ['185.189.13.66:9100']
+        labels:
+          alias: zaal7.noia.novy.pw
+

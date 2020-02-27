@@ -1,0 +1,6 @@
+  - job_name: 'smart16.noia.novy.pw'
+    static_configs:
+      - targets: ['185.139.70.172:9100']
+        labels:
+          alias: smart16.noia.novy.pw
+

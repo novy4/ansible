@@ -1,0 +1,93 @@
+---
+
+- name: test
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: get ip from ssh
+      shell: ssh -G {{ item }} | awk '/^hostname / { print $2 }'
+      register: ip_address
+      with_inventory_hostnames:
+        - all
+      tags:
+        - test
+    - set_fact: ip_address="{{ ip_address }}"
+      tags:
+        - test
+    #- debug: msg="{{ item.stdout }} {{ item.item }}"
+    #  with_items: "{{ ip_address.results }}"
+
+    - name: make a config file
+      template: src=prometheus.yml dest=templates/source/{{ item.item }}.json
+      vars:
+        HOSTNAME: "{{ item.item }}"
+        IP : "{{ item.stdout }}"
+      with_items: "{{ ip_address.results }}"
+
+    - name: collect all json files together
+      assemble:
+        src: templates/source
+        dest: templates/final/prometheus.yml
+        delimiter: "\n"
+
+
+- hosts: grafana.novy.pw
+  tasks:
+    - name: make final yml
+      blockinfile:
+        path: /etc/prometheus/prometheus.yml
+        insertafter: '^#####HERE ANSIBLE COMES IN#####'
+        block: |
+            - job_name: '{{ HOSTNAME }}'
+              static_configs:
+                - targets: ['{{ IP }}:9100']
+                  labels:
+                    alias: {{ HOSTNAME }}
+        vars:
+          HOSTNAME: "{{ item.item }}"
+          IP : "{{ item.stdout }}"
+        with_items: "{{ ip_address.results }}"
+            
+      
+
+
+- hosts: monitoring
+  vars: 
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Add host to prometheus config
+      replace:
+        path: /etc/prometheus/prometheus.yml
+        after: '#####HERE ANSIBLE COMES IN#####'
+        before: '#####HERE ANSIBLE COMES OUT#####'
+        regexp: '(^.+$\n|^$\n)'
+        replace: ''
+      tags:
+        - test
+    
+    - name: Add host to prometheus config
+      replace:
+        path: /etc/prometheus/prometheus.yml
+        #after: '#####HERE ANSIBLE COMES IN#####'
+        #before: '#####HERE ANSIBLE COMES OUT#####'
+        regexp: '(#####HERE ANSIBLE COMES OUT#####)'
+        replace: '\n\1'
+      tags:
+        - test
+    
+    - name: make final yml
+      blockinfile:
+        path: /etc/prometheus/prometheus.yml
+        insertafter: '^#####HERE ANSIBLE COMES IN#####'
+        block: |
+            - job_name: '{{ HOSTNAME }}'
+              static_configs:
+                - targets: ['{{ IP }}:9100']
+                  labels:
+                    alias: {{ HOSTNAME }}
+      vars:
+        HOSTNAME: "{{ item.item }}"
+        IP : "{{ item.stdout }}"
+      with_items: "{{ ip_address.results }}"
+      tags:
+        - test

@@ -1,0 +1,14 @@
+
+- hosts: monitoring
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Add host to prometheus config
+      blockinfile:
+        path: /etc/prometheus/prometheus.yml
+        #insertafter: '^#####HERE ANSIBLE COMES IN#####'
+        #insertbefore: '^#####HERE ANSIBLE COMES OUT#####'
+        block: |
+          test
+      tags:
+        - test

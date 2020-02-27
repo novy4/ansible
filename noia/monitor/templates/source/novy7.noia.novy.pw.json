@@ -1,0 +1,6 @@
+  - job_name: 'novy7.noia.novy.pw'
+    static_configs:
+      - targets: ['46.17.104.228:9100']
+        labels:
+          alias: novy7.noia.novy.pw
+

@@ -1,0 +1,50 @@
+---
+- name: a play that runs entirely on the ansible host
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: generating the uptime panel
+      template: src=dashboards/templates/template.json.j4 dest=dashboards/source/{{ item }}.json
+      vars:
+        HOSTNAME: "{{ item }}"
+        ID : "{{ 9999999999 | random }}"
+        ID2 : "{{ 999999999 | random }}"
+      with_inventory_hostnames:
+        - all
+
+    - name: collect all json files together
+      assemble:
+        src: dashboards/source
+        dest: dashboards/final/NOIA_CACHE.json
+        delimiter: ",\n"
+
+    - name: insertafter
+      lineinfile:
+        path: dashboards/final/NOIA_CACHE.json
+        insertafter: EOF
+        line: "]}"
+
+    - name: Delete a comma
+      replace:
+        path: dashboards/final/NOIA_CACHE.json
+        after: 'panels'
+        regexp: '^,'
+        replace: ''
+
+    - name: Change X and Y
+      shell: sh scripts/runit.sh
+
+    - name: Import Grafana dashboard
+      grafana_dashboard:
+        grafana_url: https://grafana.novy.pw
+        grafana_api_key: eyJrIjoiRzNocVRSNTZRNE00QkxPVTYzaHM1eFRGMTZublJIcTUiLCJuIjoiYW5zaWJsZSIsImlkIjoxfQ==
+        state: present
+        slug: foo
+        message: Updated by ansible
+        overwrite: yes
+        path: dashboards/final/NOIA_CACHE.json
+        validate_certs: no
+    
+    - name: Change the version
+      shell: sh scripts/inc.sh
+

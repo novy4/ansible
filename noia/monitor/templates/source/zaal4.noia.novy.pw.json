@@ -1,0 +1,6 @@
+  - job_name: 'zaal4.noia.novy.pw'
+    static_configs:
+      - targets: ['185.255.134.184:9100']
+        labels:
+          alias: zaal4.noia.novy.pw
+

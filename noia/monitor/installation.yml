@@ -1,0 +1,4 @@
+---
+
+- roles:
+    - role: uptime-monitor
