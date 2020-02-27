@@ -1,4 +1,11 @@
 ---
+- name: Checking cron jobs
+  shell: /bin/bash -c "crontab -l | grep noia | wc -l"
+  register: cron_exists
+
+- name: Checking cron jobs
+  shell: /bin/bash -c "crontab -l | grep systemctl | wc -l"
+  register: cron_exists_systemctl
 
 - name: "set the weekly timestamp"
   cron:
@@ -6,9 +13,17 @@
     hour: "15"
     weekday: "MON"
     job: "/root/noia_weekly_uptime.sh > /root/monday_utc_timestamp.log"
+  when: cron_exists == "0"
 
 - name: "set 10 minutes metrics"
   cron:
     minute: "*/10"
     job: "/bin/echo noia_uptime $(/root/noia_uptime.sh) > /var/lib/node_exporter/textfile_collector/noia_uptime.prom"
+  when: cron_exists == "0"
+
+- name: "restarting noia if the daemon is stuck"
+  cron:
+    hour: "*/2"
+    job: "if [[ -z $(/root/noia_weekly_uptime.sh) ]]; then systemctl restart noia; fi"
+  when: cron_exists_systemctl == "0"
 

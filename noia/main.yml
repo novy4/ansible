@@ -28,14 +28,14 @@
     - metrics
 
 - name: Include Dashboard generation
-  include: monitoring/dashboard.yml
+  import_playbook: monitoring/dashboard.yml
   tags:
     - dashboards
 
-#- name: Include prometheus configuration
-#  include: monitoring/prometheus_config.yml
-#  tags:
-#    - prometheus
+- name: Include prometheus configuration
+  import_playbook: monitoring/prometheus_config.yml
+  tags:
+    - prometheus
 
 ##########SOFTWARE UPGRADE###########
 - hosts: new-hosts
