@@ -1,6 +1,6 @@
 ---
 
-- name: test
+- name: Collect ips and hostnames
   hosts: 127.0.0.1
   connection: local
   tasks:
@@ -9,47 +9,8 @@
       register: ip_address
       with_inventory_hostnames:
         - all
-      tags:
-        - test
+
     - set_fact: ip_address="{{ ip_address }}"
-      tags:
-        - test
-    #- debug: msg="{{ item.stdout }} {{ item.item }}"
-    #  with_items: "{{ ip_address.results }}"
-
-    - name: make a config file
-      template: src=prometheus.yml dest=templates/source/{{ item.item }}.json
-      vars:
-        HOSTNAME: "{{ item.item }}"
-        IP : "{{ item.stdout }}"
-      with_items: "{{ ip_address.results }}"
-
-    - name: collect all json files together
-      assemble:
-        src: templates/source
-        dest: templates/final/prometheus.yml
-        delimiter: "\n"
-
-
-- hosts: grafana.novy.pw
-  tasks:
-    - name: make final yml
-      blockinfile:
-        path: /etc/prometheus/prometheus.yml
-        insertafter: '^#####HERE ANSIBLE COMES IN#####'
-        block: |
-            - job_name: '{{ HOSTNAME }}'
-              static_configs:
-                - targets: ['{{ IP }}:9100']
-                  labels:
-                    alias: {{ HOSTNAME }}
-        vars:
-          HOSTNAME: "{{ item.item }}"
-          IP : "{{ item.stdout }}"
-        with_items: "{{ ip_address.results }}"
-            
-      
-
 
 - hosts: monitoring
   vars: 
@@ -62,19 +23,13 @@
         before: '#####HERE ANSIBLE COMES OUT#####'
         regexp: '(^.+$\n|^$\n)'
         replace: ''
-      tags:
-        - test
     
     - name: Add host to prometheus config
       replace:
         path: /etc/prometheus/prometheus.yml
-        #after: '#####HERE ANSIBLE COMES IN#####'
-        #before: '#####HERE ANSIBLE COMES OUT#####'
         regexp: '(#####HERE ANSIBLE COMES OUT#####)'
         replace: '\n\1'
-      tags:
-        - test
-    
+
     - name: make final yml
       blockinfile:
         path: /etc/prometheus/prometheus.yml
@@ -85,9 +40,30 @@
                 - targets: ['{{ IP }}:9100']
                   labels:
                     alias: {{ HOSTNAME }}
+        marker: "# {mark} ANSIBLE MANAGED BLOCK {{item.item}}"
       vars:
         HOSTNAME: "{{ item.item }}"
         IP : "{{ item.stdout }}"
-      with_items: "{{ ip_address.results }}"
-      tags:
-        - test
+      with_items: "{{ hostvars['127.0.0.1']['ip_address'].results }}"
+    
+    - name: Remove marker
+      replace:
+        path: /etc/prometheus/prometheus.yml
+        after: '#####HERE ANSIBLE COMES IN#####'
+        before: '#####HERE ANSIBLE COMES OUT#####'
+        regexp: '^#.+$\n'
+        replace: ''
+
+    - name: Add host to prometheus config
+      replace:
+        path: /etc/prometheus/prometheus.yml
+        regexp: '(#####HERE ANSIBLE COMES OUT#####)'
+        replace: '\n\1'
+      notify:
+        - restart prometheus
+
+  handlers:
+    - name: restart prometheus
+      systemd:
+        name: prometheus
+        state: reloaded

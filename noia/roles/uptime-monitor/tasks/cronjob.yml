@@ -21,7 +21,7 @@
     job: "/bin/echo noia_uptime $(/root/noia_uptime.sh) > /var/lib/node_exporter/textfile_collector/noia_uptime.prom"
   when: cron_exists == "0"
 
-- name: "restarting noia if the daemon is stuck"
+- name: "restarting noia if the daemon is stucked"
   cron:
     hour: "*/2"
     job: "if [[ -z $(/root/noia_weekly_uptime.sh) ]]; then systemctl restart noia; fi"
