@@ -1,0 +1,11 @@
+[kusama-nodes]
+validator.kusama.novy.pw
+sentry1.kusama.novy.pw
+sentry2.kusama.novy.pw
+sentry3.kusama.novy.pw
+
+[test]
+sentry4.kusama.novy.pw
+
+[test:vars]
+ansible_python_interpreter=/usr/bin/python3

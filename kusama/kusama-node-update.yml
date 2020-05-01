@@ -1,0 +1,63 @@
+---
+- name: Kusama node update and restart systemd unit
+  hosts: test
+  gather_facts: yes
+  vars:
+    kusama_branch: "{{ current_branch }}"
+
+  tasks:
+    - name: update the repo to the lastest state
+      git:
+        repo: 'https://github.com/paritytech/polkadot.git'
+        dest: $HOME/polkadot
+        clone: no
+        update: yes
+      tags: 
+          - rebuild
+  
+    - name: switch to new branch 
+      git:
+        repo: 'https://github.com/paritytech/polkadot.git'
+        dest: $HOME/polkadot
+        version: "{{ kusama_branch }}"
+      tags: 
+          - rebuild
+
+    - name: run the binaries build
+      shell: cd $HOME/polkadot && $HOME/.cargo/bin/cargo build --release
+      tags: 
+          - rebuild
+
+    - name: restart kusama service
+      become: yes
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: kusama
+      tags: 
+          - rebuild
+
+    - name: stop kusama service
+      become: yes
+      systemd:
+        name: kusama
+        state: stopped
+      tags: 
+          - replace
+    
+    - name: Download polkadot binary
+      get_url:
+        url: https://github.com/paritytech/polkadot/releases/download/{{ kusama_branch }}/polkadot
+        dest: /home/novy/polkadot/target/release/polkadot
+        force: yes
+        mode: 'a+x'
+      tags: 
+          - replace
+
+#    - name: start kusama service
+#      become: yes
+#      systemd:
+#        name: kusama
+#        state: started
+#      tags: 
+#          - replace
