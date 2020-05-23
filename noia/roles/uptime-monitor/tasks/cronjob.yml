@@ -13,17 +13,17 @@
     hour: "15"
     weekday: "MON"
     job: "/root/noia_weekly_uptime.sh > /root/monday_utc_timestamp.log"
-  when: cron_exists == "0"
+  when: cron_exists.stdout == "0"
 
 - name: "set 10 minutes metrics"
   cron:
     minute: "*/10"
     job: "/bin/echo noia_uptime $(/root/noia_uptime.sh) > /var/lib/node_exporter/textfile_collector/noia_uptime.prom"
-  when: cron_exists == "0"
+  when: cron_exists.stdout == "0"
 
 - name: "restarting noia if the daemon is stucked"
   cron:
     hour: "*/2"
     job: "if [[ -z $(/root/noia_weekly_uptime.sh) ]]; then systemctl restart noia; fi"
-  when: cron_exists_systemctl == "0"
+  when: cron_exists_systemctl.stdout == "0"
 

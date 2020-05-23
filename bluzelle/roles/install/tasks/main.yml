@@ -1,0 +1,171 @@
+---
+#- name: create validator group
+#  group:
+#    name: "{{ validator }}"
+#    state: present
+
+#- name: create validator user
+#  user:
+#    name: "{{ validator }}"
+#    groups: "{{ validator }}"
+#    shell: /bin/bash
+#    append: yes
+#    state: present
+#    createhome: yes
+
+- name: Set up firewall for SDK
+  ufw:
+    rule: allow
+    port: '26656'
+    proto: tcp
+
+- name: Set up firewall for SSH
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+    policy: allow
+
+- name: Go Repository
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+
+- name: Install required system packages
+  apt: 
+    name: ['git', 'curl', 'build-essential', 'jq', 'golang-go'] 
+    state: latest 
+    update_cache: yes
+
+#  with_items:
+#    - 'git'
+#    - 'curl'
+#    - 'build-essential'
+#    - 'jq'
+#    - 'golang-go'
+
+#- name: Mkdir for Bluzelle
+#  shell: |
+#    mkdir -p ~/go/src/github.com/bluzelle
+#    mkdir -p ~/go/bin
+#    mkdir -p ~/go/pkg
+
+- name: Create Blz directories if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  with_items:
+    - $HOME/go/src/github.com/bluzelle
+    - $HOME/go/bin
+    - $HOME/pkg
+
+- name: Clone Bluzelle Repo
+  git:
+    repo: https://github.com/bluzelle/curium.git
+    version: devel
+    dest: $HOME/go/src/github.com/bluzelle/curium
+    update: no
+
+- name: Make bluzelle testnet target
+  make:
+    chdir: $HOME/go/src/github.com/bluzelle/curium
+    target: testnet
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+
+- name: Verify Bluzelle
+  shell: $HOME/go/bin/blzcli version --long
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+    
+- name: Init chain
+  shell: $HOME/go/bin/blzd init {{ validator }} --chain-id bluzelle  2>&1 | jq .node_id
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+
+- name: Configure Blzcli
+  shell: | 
+    $HOME/go/bin/blzcli config chain-id bluzelle
+    $HOME/go/bin/blzcli config output json 
+    $HOME/go/bin/blzcli config indent true 
+    $HOME/go/bin/blzcli config trust-node true
+    $HOME/go/bin/blzcli config keyring-backend test
+
+- name: Remove old Genesis
+  file:
+    path: $HOME/.blzd/config/genesis.json
+    state: absent
+
+- name: Reset faemon state
+  shell: $HOME/go/bin/blzd unsafe-reset-all
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+
+- name: Insert Genesis
+  get_url:
+    url: http://testnet.public.bluzelle.com:1317/genesis.json
+    dest: $HOME/.blzd/config/genesis.json
+    mode: '0440'
+
+- name: Add persistent peers
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'persistent_peers = ""'
+    replace: 'persistent_peers = "1ab16482640f1625a7a802bccdc2cc7afa93ed9e@a.sentry.testnet.public.bluzelle.com:26656,d229f73ac8de82fa788e495c181c7e0dbd72375d@b.sentry.testnet.public.bluzelle.com:26656"'
+
+- name: changing mempool size
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'size = 5000'
+    replace: 'size = 10000'
+
+- name: Enabling prometheus
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'prometheus = false'
+    replace: 'prometheus = true'
+
+- name: Patch gas price to app.toml
+  replace:
+    path: $HOME/.blzd/config/app.toml
+    regexp: 'minimum-gas-prices = ""'
+    replace: 'minimum-gas-prices = "10.0ubnt"'
+
+- name: Add CRUD to app.toml
+  lineinfile:
+    path: $HOME/.blzd/config/app.toml
+    line: 'bluzelle_crud = true'
+
+- name: Copy blzd.service file 
+  copy:
+    src: "blzd.service"
+    dest: "/etc/systemd/system/"
+    owner: "root"
+    group: "root"
+  notify:
+    - Start bluzelle
+
+- name: Wallet recovery
+  shell: echo "{{ seed_phrase }}" | $HOME/go/bin/blzcli keys add validator --recover
+
+- name: Verify Bluzelle status
+  shell: $HOME/go/bin/blzcli status
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+

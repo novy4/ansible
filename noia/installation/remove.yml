@@ -1,0 +1,32 @@
+- name: stop noia.service
+      shell: systemctl stop noia.service
+      tags: 
+          - run
+          - clean
+          - storage
+          - stop
+
+    - name: remove nodejs
+      shell: apt remove nodejs -y
+      tags: 
+          - clean
+
+    - name: delete old files
+      shell: cd /root/noia-node-cli/ && rm -rf node_modules && rm package-lock.json
+      tags: 
+          - clean
+
+    - name: git pull changes
+      shell: cd /root/noia-node-cli/ && git pull
+      tags: 
+          - update
+
+    - name: npm install
+      shell: cd /root/noia-node-cli/ && npm install
+      tags: 
+          - update
+
+    - name: npm run build
+      shell: cd /root/noia-node-cli/ && npm run build
+      tags: 
+          - update

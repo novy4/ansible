@@ -47,17 +47,18 @@
     
     - name: Download polkadot binary
       get_url:
-        url: https://github.com/paritytech/polkadot/releases/download/{{ kusama_branch }}/polkadot
-        dest: /home/novy/polkadot/target/release/polkadot
+        url: https://github.com/paritytech/polkadot/releases/download/v0.7.33/polkadot
+#        url: https://github.com/paritytech/polkadot/releases/download/{{ kusama_branch }}/polkadot
+        dest: $HOME/polkadot/target/release/polkadot
         force: yes
         mode: 'a+x'
       tags: 
           - replace
 
-#    - name: start kusama service
-#      become: yes
-#      systemd:
-#        name: kusama
-#        state: started
-#      tags: 
-#          - replace
+    - name: start kusama service
+      become: yes
+      systemd:
+        name: kusama
+        state: started
+      tags: 
+        - replace

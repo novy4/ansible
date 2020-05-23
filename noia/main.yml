@@ -1,18 +1,22 @@
+---
 #########################################
 ###########MAIN#PLAYBOOK#FOR#NOIA########
 #########################################
+
 ##########INITIAL INSTALLATION###########
-- hosts: new-hosts
+- hosts: mihail-hosts
+  environment:
+    NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
   tasks:
     - name: Include Noia installation
       include_tasks:
-        file: installation/noia.yml
+        file: installation/install.yml
         apply:
           tags:
             - install
     - name: Include Noia run node
       include_tasks:
-        file: installation/noia.yml
+        file: installation/start.yml
         apply:
           tags:
             - run
@@ -21,24 +25,24 @@
   tags:
     - full-install
 
-- hosts: new-hosts
+- hosts: mihail-hosts
   roles:
     - role: uptime-monitor
   tags:
     - metrics
 
 - name: Include Dashboard generation
-  import_playbook: monitoring/dashboard.yml
+  import_playbook: monitor/dashboard.yml
   tags:
     - dashboards
 
 - name: Include prometheus configuration
-  import_playbook: monitoring/prometheus_config.yml
+  import_playbook: monitor/prometheus_config.yml
   tags:
     - prometheus
 
 ##########SOFTWARE UPGRADE###########
-- hosts: new-hosts
+- hosts: mihail-hosts
   tasks:
     - name: Include Noia installation
       include_tasks:

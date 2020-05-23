@@ -1,11 +1,14 @@
 [kusama-nodes]
-validator.kusama.novy.pw
-sentry1.kusama.novy.pw
-sentry2.kusama.novy.pw
+validator.kusama.novy.pw ansible_user=novy
+sentry1.kusama.novy.pw ansible_user=kusama
+sentry2.kusama.novy.pw ansible_user=sentry
 sentry3.kusama.novy.pw
 
 [test]
-sentry4.kusama.novy.pw
+sentry3.kusama.novy.pw ansible_user=novy
+
+[kusama-nodes:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 [test:vars]
 ansible_python_interpreter=/usr/bin/python3

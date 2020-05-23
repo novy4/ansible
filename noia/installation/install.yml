@@ -1,0 +1,57 @@
+# ---
+#- name: Noia node installation
+#  environment:
+#    NOIA_NODE_BLOCKCHAIN_AIRDROP_ADDRESS: "{{ wallet }}"
+
+#  tasks:
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+      tags: 
+          - install
+
+    - name: Install required system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [ 'git', 'curl', 'build-essential', 'python-pip', 'python-dev']
+      tags: 
+          - install
+
+    - name: Download nodejs
+      shell: curl -sL https://deb.nodesource.com/setup_10.x | bash -
+      tags: 
+          - install
+          - update
+
+    - name: Install nodejs
+      apt: name=nodejs state=latest update_cache=yes force_apt_get=yes
+      tags: 
+          - install
+          - update
+
+    - name: Clone Noia repo
+      git:
+        repo: https://github.com/noia-network/noia-node-cli.git
+        version: master
+        dest: /root/noia-node-cli
+        update: no
+      tags: 
+          - install
+    
+    - name: Install npm
+      shell: cd /root/noia-node-cli && npm install && npm run build
+      tags: 
+          - install
+
+    - name: copy noia.service file 
+      copy:
+        src: "noia.service"
+        dest: "/etc/systemd/system/"
+        owner: "root"
+        group: "root"
+      tags: 
+          - install
+
+    - name: start noia.service
+      shell: systemctl start noia.service
+      tags: 
+          - install
+

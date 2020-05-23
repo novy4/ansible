@@ -1,0 +1,10 @@
+---
+- hosts: validators
+  roles:
+    - install
+  #  - create-validator # run a create validator command  
+  #  - stop # stop validator daemon
+  #  - update # update binaries
+  #  - reset # reset blockchain database
+  #  - remove # remove all related files
+  #  - status # check node status

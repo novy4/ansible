@@ -1,0 +1,6 @@
+---
+- name: Start bluzelle
+  systemd:
+    name: blzd
+    state: started
+    enabled: yes

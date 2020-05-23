@@ -1,0 +1,41 @@
+    - name: Set wallet for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "airdropAddress=null"
+        line: "airdropAddress={{ wallet }}"
+        state: present
+      tags:
+          - set_wallet
+          - run
+
+    - name: Disable NAT for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "natPmp=true"
+        line: "natPmp=false"
+        state: present
+      tags:
+          - set_nat
+          - run
+
+    - name: Storage Increase for noia
+      lineinfile:
+        path: '/root/.noia-node/node.settings'
+        regexp: "size=104857600"
+        line: "size=5485760000"
+        state: present
+      tags:
+          - storage
+          - run
+
+    - name: start noia.service
+      shell: systemctl restart noia.service
+      tags: 
+          - run
+          - update
+          - storage
+
+    - name: enable noia.service
+      systemd: name=noia.service state=started enabled=yes
+      tags: 
+          - run

@@ -10,7 +10,7 @@
         ID : "{{ 9999999999 | random }}"
         ID2 : "{{ 999999999 | random }}"
       with_inventory_hostnames:
-        - all
+        - all:!monitoring
 
     - name: collect all json files together
       assemble:
