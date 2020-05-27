@@ -1,5 +1,5 @@
 ---
-- hosts: validators
+- hosts: validator
   roles:
     - install
   #  - create-validator # run a create validator command  
