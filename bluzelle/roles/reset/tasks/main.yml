@@ -1,0 +1,36 @@
+---
+- name: Stop bluzelle
+  systemd:
+    name: blzd
+    state: stopped
+    enabled: yes
+
+- name: Remove old Genesis
+  file:
+    path: $HOME/.blzd/config/genesis.json
+    state: absent
+
+- name: Reset daemon state
+  shell: $HOME/go/bin/blzd unsafe-reset-all
+  register: shell_result
+
+- debug:
+    var: shell_result.stdout_lines
+
+- name: Insert Genesis
+  get_url:
+    url: http://testnet.public.bluzelle.com:1317/genesis.json
+    dest: $HOME/.blzd/config/genesis.json
+    mode: '0440'
+
+- name: Add persistent peers
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'persistent_peers = ""'
+    replace: 'persistent_peers = "1ab16482640f1625a7a802bccdc2cc7afa93ed9e@a.sentry.testnet.public.bluzelle.com:26656,0fa3156de3ee321a7bf1e8b13678080f024cde65@95.217.122.207:29656"'
+
+- name: Start bluzelle
+  systemd:
+    name: blzd
+    state: started
+    enabled: yes

@@ -40,19 +40,6 @@
     state: latest 
     update_cache: yes
 
-#  with_items:
-#    - 'git'
-#    - 'curl'
-#    - 'build-essential'
-#    - 'jq'
-#    - 'golang-go'
-
-#- name: Mkdir for Bluzelle
-#  shell: |
-#    mkdir -p ~/go/src/github.com/bluzelle
-#    mkdir -p ~/go/bin
-#    mkdir -p ~/go/pkg
-
 - name: Create Blz directories if they don't exist
   file:
     path: "{{ item }}"
@@ -125,13 +112,25 @@
   replace:
     path: $HOME/.blzd/config/config.toml
     regexp: 'persistent_peers = ""'
-    replace: 'persistent_peers = "1ab16482640f1625a7a802bccdc2cc7afa93ed9e@a.sentry.testnet.public.bluzelle.com:26656,d229f73ac8de82fa788e495c181c7e0dbd72375d@b.sentry.testnet.public.bluzelle.com:26656"'
+    replace: 'persistent_peers = "bf0e92536b59d34d6169d11c513d02019f5adb8c@10.0.1.2:26656,79345f9950c03f27fc00fe3d547bb81ee77d1137@10.0.1.17:26656,0fa3156de3ee321a7bf1e8b13678080f024cde65@95.217.122.207:29656"'
 
 - name: changing mempool size
   replace:
     path: $HOME/.blzd/config/config.toml
     regexp: 'size = 5000'
     replace: 'size = 10000'
+
+- name: changing addrbook value
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'addr_book_strict = true'
+    replace: 'addr_book_strict = false'
+
+- name: changing pex value
+  replace:
+    path: $HOME/.blzd/config/config.toml
+    regexp: 'pex = true'
+    replace: 'pex = false'
 
 - name: Enabling prometheus
   replace:

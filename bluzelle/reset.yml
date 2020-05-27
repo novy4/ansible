@@ -1,0 +1,4 @@
+---
+- hosts: validators
+  roles:
+    - reset # Reset blcokchain data and get new genesis
