@@ -1,0 +1,270 @@
+---
+- name: Set up firewall for SDK
+  ufw:
+    rule: allow
+    port: '26656'
+    proto: tcp
+  tags: 
+    - sentry
+    - validator
+
+- name: Set up firewall for SSH
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+  tags: 
+    - sentry
+    - validator
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+    policy: allow
+  tags: 
+    - sentry
+    - validator
+
+- name: Go Repository
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+  tags: 
+    - sentry
+    - validator
+
+- name: Install required system packages
+  apt: 
+    name: ['git', 'curl', 'build-essential', 'jq', 'golang-go'] 
+    state: latest 
+    update_cache: yes
+  tags: 
+    - sentry
+    - validator
+
+- name: Create Akash directories if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0775
+  with_items:
+    - $HOME/go/src/github.com
+    - $HOME/go/bin
+    - $HOME/pkg
+  tags: 
+    - sentry
+    - validator
+
+- name: Clone Akash Repo
+  git:
+    repo: https://github.com/ovrclk/akash.git
+    version: v0.7.0
+    dest: $HOME/go/src/github.com/ovrclk/akash
+    update: no
+  tags: 
+    - sentry
+    - validator
+
+- name: Make Akash testnet target
+  make:
+    chdir: $HOME/go/src/github.com/ovrclk/akash
+    target: install
+  register: shell_result
+  tags: 
+    - sentry
+    - validator
+
+- debug:
+    var: shell_result.stdout_lines
+  tags: 
+    - sentry
+    - validator
+
+- name: Update bashrc for user
+  lineinfile:
+    dest=$HOME/.bashrc
+    line="export PATH=$HOME/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:~/bin"
+    owner="{{ ansible_ssh_user }}"
+  tags: 
+    - sentry
+    - validator
+
+- name: Verify Akash version
+  shell: $HOME/go/bin/akashctl version --long
+  register: shell_result
+  tags: 
+    - sentry
+    - validator
+
+- debug:
+    var: shell_result.stdout_lines
+  tags: 
+    - sentry
+    - validator
+
+- name: Remove old Genesis
+  file:
+    path: $HOME/.akashd/config/genesis.json
+    state: absent
+  tags: 
+    - sentry
+    - validator
+
+- name: Init chain
+  shell: $HOME/go/bin/akashd init {{ validator }} --chain-id centauri-2  2>&1 | jq .node_id
+  register: node_id
+  tags: 
+    - sentry
+    - validator
+
+- debug:
+    var: node_id.stdout_lines
+  tags: 
+    - sentry
+    - validator
+
+- name: Configure Akashctl
+  shell: | 
+    $HOME/go/bin/akashctl config chain-id centauri-2
+    $HOME/go/bin/akashctl config output json 
+    $HOME/go/bin/akashctl config indent true 
+    $HOME/go/bin/akashctl config trust-node true
+  tags: 
+    - sentry
+    - validator
+
+- name: Reset daemon state
+  shell: $HOME/go/bin/akashd unsafe-reset-all
+  register: shell_result
+  tags: 
+    - sentry
+    - validator
+
+- debug:
+    var: shell_result.stdout_lines
+  tags: 
+    - sentry
+    - validator
+
+- name: Insert Genesis
+  get_url:
+    url: https://raw.githubusercontent.com/ovrclk/net/master/centauri-2/genesis.json
+    dest: $HOME/.akashd/config/genesis.json
+    mode: '0440'
+  tags: 
+    - sentry
+    - validator
+
+- name: Add seed peers
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'seeds = .*$'
+    replace: 'seeds = "{{ seeds }}"'
+  tags: sentry
+
+- name: Add persistent peers
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'persistent_peers = .*$'
+    replace: 'persistent_peers = "{{ sentry_persistent_peers }}"'
+  tags: sentry
+
+- name: Add persistent peers
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'persistent_peers = .*$'
+    replace: 'persistent_peers = "{{ validator_persistent_peers }}"'
+  tags: validator
+
+- name: Add private node id
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'private_peer_ids = .*$'
+    replace: 'private_peer_ids = "{{ private_peer_ids }}"'
+  tags: sentry
+
+- name: changing mempool size
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'size = 5000'
+    replace: 'size = 10000'
+  tags: 
+    - sentry
+    - validator
+
+- name: changing addrbook value
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'addr_book_strict = true'
+    replace: 'addr_book_strict = false'
+  tags: validator
+
+- name: changing pex value
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'pex = true'
+    replace: 'pex = false'
+  tags: validator
+
+- name: Enabling prometheus
+  replace:
+    path: $HOME/.akashd/config/config.toml
+    regexp: 'prometheus = false'
+    replace: 'prometheus = true'
+  tags: 
+    - sentry
+    - validator
+
+- name: Patch gas price to app.toml
+  replace:
+    path: $HOME/.akashd/config/app.toml
+    regexp: 'minimum-gas-prices = ""'
+    replace: 'minimum-gas-prices = "0.025uakt"'
+  tags: 
+    - sentry
+    - validator
+
+- name: Copy akashd.service file 
+  copy:
+    src: "akashd.service"
+    dest: "/etc/systemd/system/"
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+  tags: 
+    - sentry
+    - validator
+
+- name: Start_Akash
+  systemd:
+    name: akashd
+    state: started
+    enabled: yes
+  tags: 
+    - sentry
+    - validator
+
+- name: Wallet recovery
+  shell: echo "{{ seed_phrase }}" | $HOME/go/bin/blzcli keys add validator --recover
+  tags: 
+    - validator
+
+- pause:
+    seconds: 10
+  tags: 
+    - sentry
+    - validator
+
+- name: Verify Akash status
+  shell: $HOME/go/bin/akashctl status
+  register: node_status
+  tags: 
+    - sentry
+    - validator
+
+- debug:
+    var: node_status.stdout_lines
+  tags: 
+    - sentry
+    - validator
+

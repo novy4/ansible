@@ -1,0 +1,6 @@
+---
+- name: Restart_Akash
+  systemd:
+    name: akashd
+    state: restarted
+    enabled: yes
