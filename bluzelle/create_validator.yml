@@ -1,0 +1,5 @@
+---
+- hosts: validator
+  tasks:
+    - name: staking creeate-validator
+      shell: $HOME/go/bin/blzcli tx staking create-validator --amount=1000000000ubnt --pubkey=$($HOME/go/bin/blzd tendermint show-validator) --moniker={{ validator }} --commission-rate=0.1 --commission-max-rate=0.2 --commission-max-change-rate=0.01 --min-self-delegation=1 --gas=auto --gas-adjustment=1.2 --gas-prices=10.0ubnt --from validator -y

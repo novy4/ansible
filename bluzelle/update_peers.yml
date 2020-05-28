@@ -1,0 +1,16 @@
+---
+- hosts: validator
+  tasks:
+    - name: update private peers on sentry
+      replace:
+        path: $HOME/.blzd/config/config.toml
+        regexp: 'private_peer_ids = .*$'
+        replace: 'private_peer_ids = "{{ private_peer_ids }}"'
+      tags: sentry
+
+    - name: update peers on validator
+      replace:
+        path: $HOME/.blzd/config/config.toml
+        regexp: 'persistent_peers = .*$'
+        replace: 'persistent_peers = "{{ persistent_peers }}"'
+      tags: validator

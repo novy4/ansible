@@ -1,6 +1,6 @@
 ---
-- name: Start bluzelle
+- name: Restart_Bluzelle
   systemd:
     name: blzd
-    state: started
+    state: restarted
     enabled: yes
