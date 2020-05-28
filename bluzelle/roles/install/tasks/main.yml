@@ -140,7 +140,7 @@
     - sentry
     - validator
 
-- name: Reset faemon state
+- name: Reset daemon state
   shell: $HOME/go/bin/blzd unsafe-reset-all
   register: shell_result
   tags: 
