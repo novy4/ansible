@@ -1,5 +1,6 @@
 ---
 - name: Set up firewall for SDK
+  become: yes
   ufw:
     rule: allow
     port: '26656'
@@ -9,6 +10,7 @@
     - validator
 
 - name: Set up firewall for SSH
+  become: yes
   ufw:
     rule: allow
     port: '22'
@@ -18,6 +20,7 @@
     - validator
 
 - name: Enable ufw
+  become: yes
   ufw:
     state: enabled
     policy: allow
@@ -26,6 +29,7 @@
     - validator
 
 - name: Go Repository
+  become: yes
   apt_repository:
     repo: ppa:longsleep/golang-backports
   tags: 
@@ -33,6 +37,7 @@
     - validator
 
 - name: Install required system packages
+  become: yes
   apt: 
     name: ['git', 'curl', 'build-essential', 'jq', 'golang-go'] 
     state: latest 
@@ -226,6 +231,7 @@
     - validator
 
 - name: Copy akashd.service file 
+  become: yes
   copy:
     src: "akashd.service"
     dest: "/etc/systemd/system/"
@@ -236,6 +242,7 @@
     - validator
 
 - name: Start_Akash
+  become: yes
   systemd:
     name: akashd
     state: started
