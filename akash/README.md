@@ -1,8 +1,8 @@
 
-Ansible playbook execution:
+## Ansible playbook execution:
+ansible-playbook -i hosts.yml install.yml -t sentry -e 'ansible_python_interpreter=/usr/bin/python3'
 
-
-hosts.ini should contains sections as follow:
+### hosts.ini should contains sections as follow:
 
 [validator]
 hostname validator=Test seed_phrase=''
