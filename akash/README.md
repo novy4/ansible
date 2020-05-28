@@ -28,6 +28,9 @@ validator_persistent_peers='node-id@ip:port'
 [sentry:vars]
 
 ansible_ssh_user='root' ## hostname user account
+
 seeds='noide-id@ip:port' ## seeds nodes 
+
 sentry_persistent_peers='node-id@ip:port' ## persistent peers
+
 private_peer_ids='node-id' ## validator node id
