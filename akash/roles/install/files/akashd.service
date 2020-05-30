@@ -3,8 +3,8 @@ Description=akash Daemon
 After=network-online.target
 
 [Service]
-User=root
-ExecStart=/root/go/bin/akashd start  --pruning nothing
+User=sentry
+ExecStart=/home/sentry/go/bin/akashd start  --pruning nothing
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
